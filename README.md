@@ -11,7 +11,7 @@ Semangat lah UM
  # DONE
   	- memisahkan fungsi joystick dari KRSI
   	- menggunakan interupt untuk komunikasi
-  	- memisah sourcode untuk memudahkan pembuatan code setiap tahun sekarang ngodingnya di ROBOT_<1(aerora)/2(aerori)>_<tahun>
+  	- memisah sourcode untuk memudahkan pembuatan code setiap tahun sekarang ngodingnya di ROBOT_<1(aerora)/2(aerori)>_<tahun>.cpp
 
  # NEED TEST
  	- optimasi joystick ==> status[NEED TO TEST]
