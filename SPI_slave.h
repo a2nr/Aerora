@@ -36,10 +36,11 @@
 class SPIClass {
 public:
   inline static byte transfer(byte _data);
-
+  inline static byte getSPDR();
+  inline static void setSPDR(byte data);
   // SPI Configuration methods
 
-  inline static void attachInterrupt();
+  inline static void attachInterrupt(void (*userFunc)(void));
   inline static void detachInterrupt(); // Default
 
   static void begin(); // Default
@@ -48,9 +49,24 @@ public:
   static void setBitOrder(uint8_t);
   static void setDataMode(uint8_t);
   static void setClockDivider(uint8_t);
+
 };
 
 extern SPIClass SPI;
+
+static void (*voidFuncPtr)(void);
+
+
+byte SPIClass::getSPDR(){
+  while (!(SPSR & _BV(SPIF)));
+  return SPDR;
+}
+
+void SPIClass::setSPDR(byte data){
+  SPDR = data;
+  while (!(SPSR & _BV(SPIF)))
+    ;
+}
 
 byte SPIClass::transfer(byte _data) {
   SPDR = _data;
@@ -59,8 +75,9 @@ byte SPIClass::transfer(byte _data) {
   return SPDR;
 }
 
-void SPIClass::attachInterrupt() {
+void SPIClass::attachInterrupt(void (*userFunc)(void)) {
   SPCR |= _BV(SPIE);
+  voidFuncPtr = userFunc;
 }
 
 void SPIClass::detachInterrupt() {
