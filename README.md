@@ -1,22 +1,22 @@
 # Aerora
 
-Semangat lah UM
+	Semangat lah UM
 
- # STATUS
- - Joysti Optimation NEED TO TEST
+# STATUS
+	- Joysti Optimation NEED TO TEST
 
- # TODO 
- - optimation sound pooling
+# TODO 
+	- optimation sound pooling
 
- # DONE
+# DONE
   	- memisahkan fungsi joystick dari KRSI
   	- menggunakan interupt untuk komunikasi
   	- memisah sourcode untuk memudahkan pembuatan code setiap tahun sekarang ngodingnya di ROBOT_<1(aerora)/2(aerori)>_<tahun>.cpp
 
- # NEED TEST
- 	- optimasi joystick ==> status[NEED TO TEST]
+# NEED TEST
+	- optimasi joystick ==> status[NEED TO TEST]
 
- # INSTRUCTION TEST
+# INSTRUCTION TEST
  	- Optimasi Joystick
  		1. upload ke board
  		2. sambung ke robovie board melalui koneksi joystick
