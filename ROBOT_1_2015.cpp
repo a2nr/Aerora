@@ -1,4 +1,4 @@
-#ifdef USING_AERORI && TAHUN_2016
+#ifdef USING_AERORA && TAHUN_2015
 
 #include "KRSI.h"
 #include <EEPROM.h>
