@@ -1,8 +1,9 @@
-//#define DEBUG_MODE
+#ifdef USING_AERORA && TAHUN_2016
 
+//#define DEBUG_MODE
 #include "KRSI.h"
 
-static KRSI Seni16;
+KRSI Seni16;
 
 void RobotSetup(){
 	Seni16.ComunicationInit();
@@ -17,3 +18,5 @@ void RobotLoop(){
 	Seni16.Press(DOWN);
 	delay(1000);
 }
+
+#endif //USING_AERORA && TAHUN_2016
