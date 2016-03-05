@@ -1,5 +1,7 @@
 #include "KRSI.h"
 
+#define DEBUG_MODE
+
 conFbyte PinAnalog       = A6;//A1;
 conFbyte PinStrobe       = A3;//A0;
 conFbyte PinReset        = 2;
