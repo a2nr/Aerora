@@ -3,7 +3,7 @@
 
 #include "SPI_slave.h"
 
-#undef DEBUG_JOYSTICK
+#define DEBUG_JOYSTICK
 
 //byte4
 #define SELECT      0,0x01
