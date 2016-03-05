@@ -16,6 +16,7 @@
 #include <stdio.h>
 
 
+
 typedef const PROGMEM char  conFchar;
 typedef const PROGMEM byte  conFbyte;
 #define ENTER       "\r\n"
@@ -168,6 +169,8 @@ class KRSI
      * 
      */
     boolean Bussy();
+
+    void ControlerDataView();
 
     void BT_init();
 
