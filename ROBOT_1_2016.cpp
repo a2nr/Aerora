@@ -1,6 +1,8 @@
 #ifdef USING_AERORA && TAHUN_2016
 
-//#define DEBUG_MODE
+#define DEBUG_MODE
+#define DEBUG_JOYSTICK
+
 #include "KRSI.h"
 
 KRSI Seni16;
