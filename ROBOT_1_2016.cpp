@@ -13,6 +13,9 @@ void RobotSetup(){
 }
 
 void RobotLoop(){
+	#ifdef DEBUG_MODE
+	Seni16.ControlerDataView();
+	#endif
 	Seni16.Press(UP);
 	Seni16.Release(DOWN);
 	delay(1000);
