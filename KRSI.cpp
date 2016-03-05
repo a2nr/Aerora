@@ -179,11 +179,11 @@ void KRSI::ControlerDataView()
     for (byte _i = 0; _i <= 8 ; _i++)
     {
       if (_i != 8) {
-        Serial.print(Byte[_i], HEX);
+        Serial.print(dataInview[_i], HEX);
         Serial.print(F(" | "));
       }
       else {
-        Serial.println(Byte[_i], HEX);
+        Serial.println(dataInview[_i], HEX);
       }
     }
     Serial.println(F("===================================="));
