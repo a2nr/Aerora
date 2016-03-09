@@ -1,6 +1,5 @@
 #include "KRSI.h"
 
-#define DEBUG_MODE
 
 conFbyte PinAnalog       = A6;//A1;
 conFbyte PinStrobe       = A3;//A0;
@@ -12,7 +11,7 @@ KRSI::KRSI() {}
 
 void KRSI::ComunicationInit()
 {
-  Serial.begin(9600);
+  Serial.begin(38400);
 }
 
 void KRSI::EarInit()
