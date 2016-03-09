@@ -36,6 +36,7 @@
 static volatile byte countCmd;
 static volatile byte dataInCmd;
 static volatile byte dataOutCmd[6];
+static volatile byte dataFalg;
 
 #ifdef DEBUG_JOYSTICK
 	static volatile byte dataInview[6];
