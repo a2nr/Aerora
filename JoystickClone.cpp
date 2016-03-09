@@ -46,16 +46,10 @@ void JoystickTransferHandler(void) {
  */
 void JoystickInit()
 {
-
-  SPI.begin();
-  SPI.attachInterrupt(JoystickTransferHandler);
-  SPI.setBitOrder(LSBFIRST);
-  SPI.setDataMode(SPI_MODE3);
-  SPI.setSPDR(0xFF);
   dataInCmd = 0x00;
   countCmd = 0;
   JoystickReleaseAll();
-  sei();
+  
 }
 
 
