@@ -33,10 +33,14 @@ void JoystickTransferHandler(void) {
     dataInview[countCmd] = dataInCmd;
   #endif
     
-  if(countCmd < 8)
+  if(countCmd < 8){
     countCmd ++;
-  else
+    dataFalg = 0x01;
+  }
+  else{
     countCmd = 0;
+    dataFalg = 0x00;
+  }
 }
 
 
