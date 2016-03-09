@@ -13,6 +13,8 @@ void RobotSetup(){
 void RobotLoop(){
 	#ifdef DEBUG_MODE
 	Seni16.ControlerDataView();
+	#else
+		#error oii
 	#endif
 	Seni16.Press(UP);
 	Seni16.Release(DOWN);
