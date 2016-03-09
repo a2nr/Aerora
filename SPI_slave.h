@@ -58,14 +58,14 @@ static void (*voidFuncPtr)(void);
 
 
 byte SPIClass::getSPDR(){
-  while (!(SPSR & _BV(SPIF)));
+  // while (!(SPSR & _BV(SPIF)));
   return SPDR;
 }
 
 void SPIClass::setSPDR(byte data){
   SPDR = data;
-  while (!(SPSR & _BV(SPIF)))
-    ;
+  // while (!(SPSR & _BV(SPIF)))
+  //   ;
 }
 
 byte SPIClass::transfer(byte _data) {
