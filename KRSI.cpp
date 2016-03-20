@@ -2,11 +2,11 @@
 
 #define DEBUG_MODE
 
-conFbyte PinAnalog       = A6;//A1;
-conFbyte PinStrobe       = A3;//A0;
-conFbyte PinReset        = 2;
-conFbyte PinBussy        = A0;
-conFbyte PinTombol       = A1;
+pinInit PinAnalog       = A6;//A1;
+pinInit PinStrobe       = A3;//A0;
+pinInit PinReset        = 2;
+pinInit PinBussy        = A0;
+pinInit PinTombol       = A1;
 
 KRSI::KRSI() {}
 
@@ -132,8 +132,8 @@ void KRSI::ControllerInit(){
  * * return    : NULL
  *
  */
-void KRSI::Press(byte dataKe, byte _dataIn){
-  JoystickPress( dataKe,  _dataIn);
+void KRSI::Press(TSJoyCmd Command){
+  JoystickPress(Command);
 }
 
 /* void Analog(byte dataKe, byte _dataIn);
@@ -158,8 +158,8 @@ void KRSI::Analog(byte dataKe, byte _dataIn){
  * *             _dataIn : data yang dikirim bagaimana
  * * return    : NULL 
  */
-void KRSI::Release(byte dataKe, byte _dataIn){
-  JoystickRelease(dataKe, _dataIn);
+void KRSI::Release(TSJoyCmd Command){
+  JoystickRelease(Command);
 }
 
 /* void ReleaseAll();

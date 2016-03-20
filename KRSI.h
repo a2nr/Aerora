@@ -19,6 +19,7 @@
 
 typedef const PROGMEM char  conFchar;
 typedef const PROGMEM byte  conFbyte;
+typedef const PROGMEM byte  pinInit;
 #define ENTER       "\r\n"
 
 class KRSI
@@ -132,7 +133,7 @@ class KRSI
      * * return    : NULL
      *
      */
-    void Press(byte dataKe, byte _dataIn);
+    void Press(TSJoyCmd Command);
 
     /* void Analog(byte dataKe, byte _dataIn);
      *
@@ -154,7 +155,7 @@ class KRSI
      * *             _dataIn : data yang dikirim bagaimana
      * * return    : NULL 
      */
-    void Release(byte dataKe, byte _dataIn);
+    void Release(TSJoyCmd Command);
 
     /* void ReleaseAll();
      *
@@ -195,6 +196,7 @@ class KRSI
 };
 
 
- static void RobotSetup();
- static void RobotLoop(); 
+static void RobotSetup();
+static void RobotLoop(); 
+
 #endif

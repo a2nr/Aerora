@@ -5,34 +5,39 @@
 
 #define DEBUG_JOYSTICK
 
+//===============================================
+// for controler
+typedef struct joyCmd_ts 
+{
+	byte dataKe ;
+	byte _cmd ;
+} PROGMEM const TSJoyCmd;
+
+
 //byte4
-#define SELECT      0,0x01
-#define JOY_L       0,0x02
-#define JOY_R       0,0x04
-#define START       0,0x08
-#define UP          0,0x10
-#define RIGHT       0,0x20
-#define DOWN        0,0x40
-#define LEFT        0,0x80
-
+TSJoyCmd  SELECT	= {0, 0x01};
+TSJoyCmd  JOY_L 	= {0, 0x02};
+TSJoyCmd  JOY_R 	= {0, 0x04};
+TSJoyCmd  START 	= {0, 0x08};
+TSJoyCmd  UP    	= {0, 0x10};
+TSJoyCmd  RIGHT 	= {0, 0x20};
+TSJoyCmd  DOWN  	= {0, 0x40};
+TSJoyCmd  LEFT  	= {0, 0x80};
 //byte5
-#define L2          1,0x01
-#define R2          1,0x02
-#define L1          1,0x04
-#define R1          1,0x08
-#define TRIANGEL    1,0x10
-#define CIRCLE      1,0x20
-#define CROSS       1,0x40
-#define SQUARE      1,0x80
-
+TSJoyCmd  L2      	= {1, 0x01};
+TSJoyCmd  R2      	= {1, 0x02};
+TSJoyCmd  L1      	= {1, 0x04};
+TSJoyCmd  R1      	= {1, 0x08};
+TSJoyCmd  TRIANGEL	= {1, 0x10};
+TSJoyCmd  CIRCLE  	= {1, 0x20};
+TSJoyCmd  CROSS   	= {1, 0x40};
+TSJoyCmd  SQUARE  	= {1, 0x80};
 //analog
 #define JOY_RX      2
 #define JOY_RY      3
 #define JOY_LX      4
 #define JOY_LY      5
 
-//===============================================
-// for controler
 static volatile byte countCmd;
 static volatile byte dataInCmd;
 static volatile byte dataOutCmd[6];
@@ -42,11 +47,12 @@ static volatile byte dataOutCmd[6];
 #endif
 
 void JoystickInit(void);
-void JoystickPress(byte dataKe, byte _dataIn);
-void JoystickRelease(byte dataKe, byte _dataIn);
+void JoystickPress(TSJoyCmd Command);
+void JoystickRelease(TSJoyCmd Command);
 void JoystickAnalog(byte dataKe, byte _dataIn);
 void JoystickReleaseAll(void);
 void JoystickTransferHandler(void);
+boolean JoystickWaitToSend(void);
 
 
 

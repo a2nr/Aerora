@@ -63,21 +63,21 @@ void JoystickInit()
 /*KRSI::Press digunakan untuk menekan tombol
  *
  */
-void JoystickPress(byte dataKe, byte _dataIn)
+void JoystickPress(TSJoyCmd Command)
 {
 
-  dataOutCmd[dataKe] = (dataOutCmd[dataKe]) - (_dataIn);;
-
+  dataOutCmd[Command.dataKe] = (dataOutCmd[Command.dataKe]) & ( !Command._cmd);
+  while( !JoystickWaitToSend() ); //wait to actualy sent
 }
 
 /*KRSI::Release digunakan untuk melepas tombol
  *
  */
-void JoystickRelease(byte dataKe, byte _dataIn)
+void JoystickRelease(TSJoyCmd Command)
 {
 
-  dataOutCmd[dataKe] = (dataOutCmd[dataKe]) + (_dataIn);
-
+  dataOutCmd[Command.dataKe] = (dataOutCmd[Command.dataKe]) | (Command._cmd);
+  while( !JoystickWaitToSend() ); //wait to actualy sent
 }
 
 /*KRSI::Analog digunakan untuk memberikan data analog
@@ -85,8 +85,10 @@ void JoystickRelease(byte dataKe, byte _dataIn)
  */
 void JoystickAnalog(byte dataKe, byte _dataIn)
 {
+  
   if (dataKe > 1)
     dataOutCmd[dataKe] = _dataIn;
+  while( !JoystickWaitToSend() ); //wait to actualy sent
 
 }
 
@@ -101,5 +103,10 @@ void JoystickReleaseAll()
   dataOutCmd[3] = 0x7F;
   dataOutCmd[4] = 0x80;
   dataOutCmd[5] = 0x7F;
+  while( !JoystickWaitToSend() ); //wait to actualy sent
 
+}
+
+boolean JoystickWaitToSend(void) {
+  return countCmd < 8 ? false : true;
 }
