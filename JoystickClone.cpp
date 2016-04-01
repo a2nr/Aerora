@@ -5,41 +5,32 @@
 // CMD  => 01h   42h   00h   00h   00h   00h   00h   00h    00h
 // Data <= 00h   Type  5Ah   Dat_0 Dat_1 Dat_2 Dat_3 Dat_4  Dat_5
 
-void JoystickTransferHandler(void) {
+void JoystickTransferHandler(void){
+  byte c = getDataReg();  // grab byte from SPI Data Register
+  dataInCmd = c;
 
-  switch(dataInCmd ){
-    case 0x00: // perlu di validasi benar 0x00 atau 0xFF
-      
-      if(countCmd == 0)
-        break;//SPI.setSPDR(0xFF);
-
-      if(countCmd > 1)
-        SPI.setSPDR(dataOutCmd[ countCmd - 2 ]);
-      
+  switch(c){
+    case 0x01:
+      setDataReg(0x41); //0x73 kalo robovie
+      dataFalg = 0x01;
       break;
     case 0x42:
-      SPI.setSPDR(0x5A);
-
+      setDataReg(0x5A);
+      countCmd = 0;
       break;
-    case 0x01:
-      SPI.setSPDR(0x73);
-      
-      break;
-  }
-    
-  dataInCmd = SPI.getSPDR();
+    case 0x00:
+      setDataReg ( dataOutCmd[countCmd] );
 
-  #ifdef DEBUG_JOYSTICK
-    dataInview[countCmd] = dataInCmd;
-  #endif
-    
-  if(countCmd < 8){
-    countCmd ++;
-    dataFalg = 0x01;
-  }
-  else{
-    countCmd = 0;
-    dataFalg = 0x00;
+      if (countCmd < 6) { 
+        countCmd ++;
+      } else {
+        setDataReg(0x00);
+        dataFalg = 0x00;
+      }
+      break;
+    default:
+      setDataReg(0x00);
+      break;
   }
 }
 
@@ -50,9 +41,21 @@ void JoystickTransferHandler(void) {
  */
 void JoystickInit()
 {
+
+  SPCR |= bit (SPE);
+  pinMode(MISO, OUTPUT);
+  pinMode(SS,INPUT);
+ 
+  SPI.setBitOrder(LSBFIRST);
+  SPI.setDataMode(SPI_MODE3);
+  SPI.attachInterrupt();
+
+  // sei();
   dataInCmd = 0x00;
   countCmd = 0;
   JoystickReleaseAll();
+
+
   
 }
 
@@ -64,7 +67,8 @@ void JoystickInit()
 void JoystickPress(byte dataKe, byte _dataIn)
 {
 
-  dataOutCmd[dataKe] = (dataOutCmd[dataKe]) - (_dataIn);;
+  dataOutCmd[dataKe] = (dataOutCmd[dataKe]) - (_dataIn);
+  while (dataFalg == 0x01); //wait until data send
 
 }
 
@@ -75,6 +79,7 @@ void JoystickRelease(byte dataKe, byte _dataIn)
 {
 
   dataOutCmd[dataKe] = (dataOutCmd[dataKe]) + (_dataIn);
+  while (dataFalg == 0x01); //wait until data send
 
 }
 
@@ -85,6 +90,7 @@ void JoystickAnalog(byte dataKe, byte _dataIn)
 {
   if (dataKe > 1)
     dataOutCmd[dataKe] = _dataIn;
+  while (dataFalg == 0x01); //wait until data send
 
 }
 
@@ -100,4 +106,8 @@ void JoystickReleaseAll()
   dataOutCmd[4] = 0x80;
   dataOutCmd[5] = 0x7F;
 
+
+}
+ISR (SPI_STC_vect) {
+  JoystickTransferHandler();
 }

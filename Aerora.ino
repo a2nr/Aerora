@@ -13,24 +13,11 @@
 #define USING_AERORA
 #define TAHUN_2016
 
-
-
-
-
-
-
-
-
-
 #include "Aerora.h"
 
 void setup(){
-    RobotSetup();
+	Robotsetup();
 }
-void loop() {
-    RobotLoop();
+void loop(){
+	Robotloop();
 }
-
-
-
-

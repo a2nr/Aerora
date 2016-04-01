@@ -16,7 +16,7 @@
 #include <stdio.h>
 
 
-#define DEBUG_MODE
+// #define DEBUG_MODE
 
 typedef const PROGMEM char  conFchar;
 typedef const PROGMEM byte  conFbyte;
@@ -196,6 +196,6 @@ class KRSI
 };
 
 
- static void RobotSetup();
- static void RobotLoop(); 
+ static void Robotsetup();
+ static void Robotloop(); 
 #endif

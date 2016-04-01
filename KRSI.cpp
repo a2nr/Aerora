@@ -118,18 +118,6 @@ boolean KRSI::Bussy()
  */
 void KRSI::ControllerInit(){
 
-  SPI.begin();
-  Serial.println("SPI.begin");
-  SPI.attachInterrupt(JoystickTransferHandler);
-  Serial.println("SPI.attachInterupt");
-  SPI.setBitOrder(LSBFIRST);
-  Serial.println("SPI.LSBFIRST");
-  SPI.setDataMode(SPI_MODE3);
-  Serial.println("SPI.SPI_MODE3");
-  SPI.setSPDR(0xFF);
-  Serial.println("init SPDR with 0xFF");
-  sei();
-  Serial.println("Activate Interupt");
   JoystickInit();
 }
 

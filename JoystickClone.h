@@ -1,9 +1,9 @@
 #ifndef JOYSTICKCLONE_H
 #define JOYSTICKCLONE_H
 
-#include "SPI_slave.h"
+#include <SPI.h>
 
-#define DEBUG_JOYSTICK
+// #define DEBUG_JOYSTICK
 
 //byte4
 #define SELECT      0,0x01
@@ -41,6 +41,9 @@ static volatile byte dataFalg;
 #ifdef DEBUG_JOYSTICK
 	static volatile byte dataInview[6];
 #endif
+	
+#define getDataReg() 	SPDR
+#define setDataReg(x)	SPDR = x
 
 void JoystickInit(void);
 void JoystickPress(byte dataKe, byte _dataIn);
@@ -48,7 +51,6 @@ void JoystickRelease(byte dataKe, byte _dataIn);
 void JoystickAnalog(byte dataKe, byte _dataIn);
 void JoystickReleaseAll(void);
 void JoystickTransferHandler(void);
-
 
 
 #endif
