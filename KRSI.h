@@ -16,7 +16,7 @@
 #include <stdio.h>
 
 
-// #define DEBUG_MODE
+#define DEBUG_MODE
 
 typedef const PROGMEM char  conFchar;
 typedef const PROGMEM byte  conFbyte;
@@ -170,8 +170,6 @@ class KRSI
      * 
      */
     boolean Bussy();
-
-    void ControlerDataView();
 
     void BT_init();
 

@@ -33,8 +33,7 @@
 
 //===============================================
 // for controler
-static volatile byte countCmd;
-static volatile byte dataInCmd;
+static volatile byte countCmd ;
 static volatile byte dataOutCmd[6];
 static volatile byte dataFalg;
 
@@ -50,7 +49,7 @@ void JoystickPress(byte dataKe, byte _dataIn);
 void JoystickRelease(byte dataKe, byte _dataIn);
 void JoystickAnalog(byte dataKe, byte _dataIn);
 void JoystickReleaseAll(void);
-void JoystickTransferHandler(void);
+static void JoystickTransferHandler(void);
 
 
 #endif

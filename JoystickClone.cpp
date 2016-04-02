@@ -7,31 +7,42 @@
 
 void JoystickTransferHandler(void){
   byte c = getDataReg();  // grab byte from SPI Data Register
-  dataInCmd = c;
-
+  
   switch(c){
     case 0x01:
-      setDataReg(0x41); //0x73 kalo robovie
-      dataFalg = 0x01;
+      setDataReg(0x73); //0x73 kalo robovie //0x41 joystick biasa
+      dataFalg = 0x00;
+      countCmd = 0;
       break;
     case 0x42:
       setDataReg(0x5A);
       countCmd = 0;
       break;
-    case 0x00:
-      setDataReg ( dataOutCmd[countCmd] );
-
+    case 0x00: // lek gak bisaganti 0xff
       if (countCmd < 6) { 
+        setDataReg ( dataOutCmd[countCmd] );
         countCmd ++;
       } else {
         setDataReg(0x00);
-        dataFalg = 0x00;
+        dataFalg = 0x01;
       }
       break;
-    default:
-      setDataReg(0x00);
+  }
+
+  #ifdef DEBUG_JOYSTICK
+  switch(c){
+    case 0x01:
+        dataInview[0] = c;
+      break;
+    case 0x42:
+        dataInview[1] = c;
+      break;
+    case 0x00: // lek gak bisaganti 0xff
+        dataInview[countCmd + 1] = c;
       break;
   }
+  #endif
+  
 }
 
 
@@ -51,10 +62,11 @@ void JoystickInit()
   SPI.attachInterrupt();
 
   // sei();
-  dataInCmd = 0x00;
   countCmd = 0;
   JoystickReleaseAll();
-
+  #ifndef DEBUG_JOYSTICK
+    Serial.println(F("\n#Define DEBUG_JOYSTICK in JoystickClone.h before"));
+  #endif
 
   
 }
@@ -67,9 +79,22 @@ void JoystickInit()
 void JoystickPress(byte dataKe, byte _dataIn)
 {
 
-  dataOutCmd[dataKe] = (dataOutCmd[dataKe]) - (_dataIn);
+  dataOutCmd[dataKe] = (dataOutCmd[dataKe]) & (~_dataIn);
   while (dataFalg == 0x01); //wait until data send
+  #ifdef DEBUG_JOYSTICK
+    Serial.println(F("===================================="));
+    for (byte _i = 0; _i < 8 ; _i++)
+    {
+      if (_i != 7) {
+        Serial.print(dataInview[_i], HEX);
+        Serial.print(F(" | "));
+      }
+      else {
+        Serial.println(dataInview[_i], HEX);
+      }
+    }
 
+  #endif
 }
 
 /*KRSI::Release digunakan untuk melepas tombol
@@ -78,9 +103,22 @@ void JoystickPress(byte dataKe, byte _dataIn)
 void JoystickRelease(byte dataKe, byte _dataIn)
 {
 
-  dataOutCmd[dataKe] = (dataOutCmd[dataKe]) + (_dataIn);
+  dataOutCmd[dataKe] = (dataOutCmd[dataKe]) | (_dataIn);
   while (dataFalg == 0x01); //wait until data send
+  #ifdef DEBUG_JOYSTICK
+    Serial.println(F("===================================="));
+    for (byte _i = 0; _i < 8 ; _i++)
+    {
+      if (_i != 7) {
+        Serial.print(dataInview[_i], HEX);
+        Serial.print(F(" | "));
+      }
+      else {
+        Serial.println(dataInview[_i], HEX);
+      }
+    }
 
+  #endif
 }
 
 /*KRSI::Analog digunakan untuk memberikan data analog

@@ -12,19 +12,11 @@ void Robotsetup(){
 }
 
 void Robotloop(){
-	// #ifdef DEBUG_MODE
-	// Seni16.ControlerDataView();
-	// #else
-	// 	#error oii
-	// #endif
-	Seni16.Press(UP);
-	Seni16.Press(DOWN);
 	
+	Seni16.Press(START);
+	Seni16.Press(SELECT);
 	delay(1000);
-	Seni16.Release(UP);
-	Seni16.Release(DOWN);
-	
-
+	Seni16.Release(START);
 	delay(1000);
 }
 

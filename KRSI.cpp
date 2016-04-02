@@ -1,6 +1,5 @@
 #include "KRSI.h"
 
-
 conFbyte PinAnalog       = A6;//A1;
 conFbyte PinStrobe       = A3;//A0;
 conFbyte PinReset        = 2;
@@ -173,45 +172,6 @@ void KRSI::ReleaseAll(){
 
 
 #ifdef DEBUG_MODE
-void KRSI::ControlerDataView()
-{
-  #ifdef DEBUG_JOYSTICK
-    Serial.println(F("===================================="));
-    Serial.print(F("Joystick Debug Count :"));
-    Serial.println(dataFalg);
-    Serial.println(F("Data Diterima"));
-    for (byte _i = 0; _i <= 8 ; _i++)
-    {
-      if (_i != 8) {
-        Serial.print(dataInview[_i], HEX);
-        Serial.print(F(" | "));
-      }
-      else {
-        Serial.println(dataInview[_i], HEX);
-      }
-    }
-    Serial.println(F("Data Dikirim"));
-    Serial.print(0x01, HEX);
-    Serial.print(F(" | "));
-    Serial.print(0x42, HEX);
-    Serial.print(F(" | "));
-    Serial.print(0x00, HEX);
-    Serial.print(F(" | "));
-    for (byte _i = 3; _i <= 8 ; _i++)
-    {
-      if (_i != 8) {
-        Serial.print(dataOutCmd[_i], HEX);
-        Serial.print(F(" | "));
-      }
-      else {
-        Serial.println(dataOutCmd[_i], HEX);
-      }
-    }
-    Serial.println(F("===================================="));
-  #else
-    Serial.printLn(F("\n#Define DEBUG_JOYSTICK in JoystickClone.h before"))
-  #endif
-}
 
 void KRSI::viewSoundData()
 {
