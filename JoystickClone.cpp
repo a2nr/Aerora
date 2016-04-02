@@ -23,9 +23,12 @@ void JoystickTransferHandler(void){
         setDataReg ( dataOutCmd[countCmd] );
         countCmd ++;
       } else {
-        setDataReg(0x00);
+        setDataReg(0xFF);
         dataFalg = 0x01;
       }
+      break;
+    default:
+      setDataReg(0xFF);
       break;
   }
 
